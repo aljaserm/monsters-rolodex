@@ -2,27 +2,7 @@ import React,{Component} from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import { CardList } from './components/card-list/card-list.component';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           It's MJ and this my first React JS App
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
+import { SearchBox } from './components/search-box/search-box.components'
 
 class App extends Component{
   constructor(){
@@ -31,6 +11,11 @@ class App extends Component{
       monsters: [ ],
       searchField: ''
     };
+    // this.handleChange= this.handleChange.bind(this);
+  }
+
+  handleChange=(e)=>{
+    this.setState({searchField: e.target.value} );
   }
 
   componentDidMount(){
@@ -43,9 +28,14 @@ class App extends Component{
     const filterMonsters = monsters.filter( monster => monster.name.toLowerCase().includes(searchField.toLowerCase()));
 
       return(
+
         <div className="App">
+        <h1> Monsters Rolodex</h1>
         <br /><br />
-        <input type='search' placeholder='Search  Monsters' onChange={e => this.setState({searchField: e.target.value} )}/>
+        <SearchBox 
+        placeholder='Search  Monsters'
+        handleChange={this.handleChange}
+        />
         <br /><br />
                 <CardList monsters={filterMonsters} /> 
       </div>
